@@ -2,7 +2,7 @@ import exp from "express"
 import fs from "fs/promises"
 import { v4 } from "uuid"
 
- const router = exp.Router()
+const router = exp.Router()
 
 router.get("/", async (req, res) => {
     try {

@@ -1,20 +1,31 @@
-import express from "express";
+import express from "express"
 import amnControler from "./controllers/amnControler.js"
-import chalk from "chalk";
+import chalk from "chalk"
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-app.use(express.json());
+const app = express()
+
+app.use(express.json())
 app.use("/amn", amnControler)
 
-const port = 7499;
+const PORT = 7499;
 
-app.get("/", (req, res) => {
-    res.send("Welcome to my Ammunition Center");
+app.get("/", (req, res) => {    
+    res.sendFile(__dirname + "/views/index.html");
 });
 
-app.listen(port, () => {
+app.listen(PORT, () => {
     console.log(chalk.magenta(
-        `server is up and runing on port: ${port} visit`) + chalk.blue(` http://localhost:${port}`)
+        `Server is up and runing on port: ${PORT} visit`) + chalk.blue(` HTTP://localhost:${PORT}`)
     );
 });
+
+
+// express
+// routing
+// middle were
+// static folder
