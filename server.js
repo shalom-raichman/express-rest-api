@@ -24,6 +24,34 @@ app.get("/amn", async (req, res)=>{
     }
 })
 
+app.get("/amn/summary", async (req, res)=>{
+    try {
+        // get data from file
+        const data = JSON.parse(await fs.readFile("./data.json", "utf-8"))
+        // summarize the amn
+        const result = data.reduce((obj, curr)=>{
+            curr.active && obj.active++
+            curr.status && obj.in_stock++
+            return obj
+        }, {
+            active: 0,
+            in_stock: 0
+        })
+        result.sum = data.length
+        console.log(result);
+        
+        // send it back to the client
+        res.json(result)
+    } catch (error) {
+        console.log(error);
+        
+        res.status(500).json({
+            error: true,
+            message: error
+        })
+    }
+})
+
 app.get("/amn/:id", async (req, res)=>{
     try {
         // get data from file
@@ -38,10 +66,6 @@ app.get("/amn/:id", async (req, res)=>{
             message: error
         })
     }
-})
-
-app.get("/amn/summary", (req, res)=>{
-    res.send("Function not implemented yet")
 })
 
 app.post("/amn", (req, res)=>{
