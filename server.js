@@ -1,4 +1,6 @@
 import express from "express";
+import fs from "fs/promises"
+
 
 const app = express()
 
@@ -8,8 +10,18 @@ app.get("/", (req, res)=>{
     res.send("Welcome to my Ammunition Center")
 })
 
-app.get("/amn", (req, res)=>{
-    res.send("Function not implemented yet")
+app.get("/amn", async (req, res)=>{
+    try {
+        // get the data from file
+        const data = await fs.readFile("./data.json", "utf-8")
+        // sent it to th client
+        res.json(JSON.parse(data))
+    } catch (error) {
+        res.status(500).json({
+            error: true,
+            message: error
+        })
+    }
 })
 
 app.get("/amn/:id", (req, res)=>{
