@@ -58,5 +58,11 @@
         "type": "HK416",
         "status": true,
         "active": true
+    },
+    {
+        "type": "M16",
+        "status": false,
+        "active": false,
+        "id": "146826fc-0dc3-4fbe-bb86-18139be8b197"
     }
 ]
