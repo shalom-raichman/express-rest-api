@@ -20,8 +20,9 @@
     {
         "id": "550e8400-e29b-41d4-a716-446655440003",
         "type": "Glock 19",
-        "status": false,
-        "active": false
+        "status": true,
+        "active": true,
+        "name": "Add your name in the body"
     },
     {
         "id": "550e8400-e29b-41d4-a716-446655440004",

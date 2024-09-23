@@ -85,7 +85,7 @@ app.post("/amn", async (req, res) => {
         await fs.writeFile("./data.json", JSON.stringify(data), {
             encoding: "utf-8",
         });
-        res.send(newAmn.id);
+        res.send(newAmn);
     } catch (error) {
         res.status(500).json({
             error: true,
@@ -94,8 +94,26 @@ app.post("/amn", async (req, res) => {
     }
 });
 
-app.patch("/amn/:id", (req, res) => {
-    res.send("Function not implemented yet");
+app.patch("/amn/:id", async (req, res) => {
+    try {
+        const data = JSON.parse(await fs.readFile("./data.json", "utf-8"));
+        const {type, status, active} = req.body
+        const amn = data.findIndex(a => a.id == req.params.id);
+        const newAmn = {
+            ...data[amn],
+            ...req.body
+        }
+        data[amn] = newAmn
+        await fs.writeFile("./data.json", JSON.stringify(data), {
+            encoding: "utf-8",
+        });
+        res.send(newAmn);
+    } catch (error) {
+        res.status(500).json({
+            error: true,
+            message: error,
+        });
+    }
 });
 
 app.listen(port, () => {
